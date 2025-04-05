@@ -1,0 +1,47 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+*.env
+
+# Python (if used)
+__pycache__/
+*.pyc
+
+# Docker
+docker-compose.override.yml
+*.log
+/data/
+
+# IDE files
+.vscode/
+.idea/
+
+# Laravel & PHP
+/vendor/
+/node_modules/
+/public/storage
+/storage/*.key
+/storage/*.log
+/storage/framework/cache/data/
+/storage/framework/sessions/
+/storage/framework/views/
+/storage/logs/
+/.env
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+
+# Livewire temp files (if any)
+/bootstrap/cache/*.php
+
+# Composer
+/composer.phar
+/composer.lock    # if you prefer to regenerate on CI; otherwise track it
+
+# Misc
+npm-debug.log*
+yarn-error.log*
+.env.*.backup

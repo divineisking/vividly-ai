@@ -1,0 +1,37 @@
+
+services:
+  laravelService:
+    build: ./laravelService
+    image: vividly-laravelservice  # Explicit lowercase image name
+    container_name: vividly-laravelservice
+    ports:
+      - "8000:8000"
+      - "5173:5173"  # Vite dev server port
+    environment:
+      - APP_ENV=local
+      - CHOKIDAR_USEPOLLING=true  # Sometimes needed for Docker in WSL/Mac
+    volumes:
+      - ./laravelService:/var/www/html/
+    networks:
+      - vividly-network
+    restart: unless-stopped  # Laravel runs immediately
+
+  pythonService:
+    build: ./pythonService
+    image: vividly-pythonservice  # Explicit lowercase image name
+    container_name: vividly-pythonservice
+    volumes:
+      - ./pythonService:/usr/src/app
+      - ./pythonService/data:/usr/src/app/data
+    networks:
+      - vividly-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped  # Python runs immediately
+
+networks:
+  vividly-network:
+    driver: bridge
